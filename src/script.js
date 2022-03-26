@@ -60,7 +60,7 @@ const pointLight = new THREE.PointLight(0xffffff, 0.1)
 pointLight.position.x = 2
 pointLight.position.y = 3
 pointLight.position.z = 10
-pointLight.intensity = 0.08
+pointLight.intensity = 0.07
 scene.add(pointLight)
 
 const pointLight2 = new THREE.PointLight(0xfff5c3, 0.1)
@@ -116,6 +116,24 @@ scene.add(camera)
 // Controls
 // const controls = new OrbitControls(camera, canvas)
 // controls.enableDamping = true
+//add star
+
+function addStar(){
+    let geometry = new THREE.SphereGeometry(0.08, 24, 24)
+    let material = new THREE.MeshStandardMaterial({color: 0xFDB813, emissive: 0xFDB813, emissiveIntensity: 40})
+    let star = new THREE.Mesh(geometry, material)
+    const [x, y, z] = Array(3).fill().map(()=>THREE.MathUtils.randFloat(-150, 150))
+    console.log(x,y,z)
+    if(Math.abs(x) > 100 || Math.abs(y) > 100 || Math.abs(z) > 100){
+        geometry = new THREE.SphereGeometry(0.3, 24, 24)
+        star = new THREE.Mesh(geometry, material)
+    }
+    star.position.set(x,y,z)
+    scene.add(star)
+    scene.add(pointLight)
+}
+Array(500).fill().forEach(addStar)
+
 
 /**
  * Renderer
